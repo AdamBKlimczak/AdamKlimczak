@@ -4,16 +4,15 @@ import os
 def main(page: ft.Page):
     page.title = "Adam Klimczak - Compensation & Benefits Expert"
     page.theme_mode = ft.ThemeMode.LIGHT
-    page.scroll = "auto"
+    page.scroll = ft.ScrollMode.AUTO
     page.bgcolor = "#F8F9FA"
     page.padding = 0
 
-    # --- PALETA BARW (Profesjonalna analityka) ---
+    # --- PALETA BARW (Zgodna z nowym standardem Colors) ---
     primary = "#1A237E"  # Navy Blue
     secondary = "#0D47A1"
-    accent = "#00C853"   # Green (akcent danych/zysku)
-    bg_white = ft.colors.WHITE
-
+    bg_white = ft.Colors.WHITE
+    
     # --- KOMPONENTY ---
     def skill_chip(label):
         return ft.Chip(
@@ -36,13 +35,13 @@ def main(page: ft.Page):
             padding=ft.padding.only(bottom=10)
         )
 
-    # --- TREŚĆ ---
+    # --- UKŁAD STRONY ---
     content_area = ft.Container(
         width=900,
         bgcolor=bg_white,
         padding=50,
         border_radius=15,
-        shadow=ft.BoxShadow(blur_radius=25, color=ft.colors.with_opacity(0.05, "black")),
+        shadow=ft.BoxShadow(blur_radius=25, color=ft.Colors.with_opacity(0.05, "black")),
         content=ft.Column([
             # NAGŁÓWEK
             ft.Row([
@@ -66,38 +65,60 @@ def main(page: ft.Page):
             ft.Divider(height=40, thickness=2, color=primary),
 
             # O MNIE
-            ft.Text("O MNIE", size=20, weight=ft.FontWeight.BOLD, color=primary),
+            ft.Text("O MNIE", size=22, weight=ft.FontWeight.BOLD, color=primary),
             ft.Text(
                 "Dogaduję się z danymi. Przy pomocy Excela, Pythona (Pandas) i Tableau potrafię wycisnąć z bazy danych wszystko. "
                 "Tworzę najlepsze raporty płacowe w Polsce, łącząc pasję do automatyzacji (VBA) z precyzyjną analizą rynku pracy.",
                 size=15, line_height=1.4
             ),
 
+            ft.Container(height=15),
+
+            # NOWA SEKCJA: KOMPLEKSOWE PROJEKTY
+            ft.Container(
+                content=ft.Column([
+                    ft.Text("KOMPLEKSOWE PROJEKTY WARTOŚCIOWANIA", size=18, weight=ft.FontWeight.BOLD, color=primary),
+                    ft.Text(
+                        "Prowadzę pełne procesy wartościowania stanowisk w organizacjach, obejmujące:",
+                        size=14, weight=ft.FontWeight.BOLD
+                    ),
+                    ft.Text(
+                        "• Analizę stanowisk i dobór odpowiedniej metody wartościowania.\n"
+                        "• Przygotowanie dedykowanych narzędzi analitycznych.\n"
+                        "• Wybór i szkolenie komisji wartościującej oraz moderowanie sesji.\n"
+                        "• Opracowanie finalnej struktury i tabel płac zgodnych z rynkiem.",
+                        size=14, line_height=1.4
+                    ),
+                ], spacing=5),
+                bgcolor="#F1F3F9",
+                padding=20,
+                border_radius=10
+            ),
+
             ft.Container(height=20),
 
-            # UMIEJĘTNOŚCI TECHNICZNE
+            # UMIEJĘTNOŚCI
             ft.Text("STACK TECHNICZNY", size=18, weight=ft.FontWeight.BOLD, color=primary),
             ft.Row([
                 skill_chip("Python (Pandas)"),
                 skill_chip("Advanced Excel / VBA"),
                 skill_chip("Tableau"),
                 skill_chip("Analiza Danych"),
-                skill_chip("Wizualizacja"),
+                skill_chip("Modelowanie tabel płac"),
             ], wrap=True),
 
             ft.Container(height=20),
 
             # DOŚWIADCZENIE
-            ft.Text("DOŚWIADCZENIE ZAWODOWE", size=20, weight=ft.FontWeight.BOLD, color=primary),
+            ft.Text("DOŚWIADCZENIE ZAWODOWE", size=22, weight=ft.FontWeight.BOLD, color=primary),
             exp_entry("Ekspert ds. analiz wynagrodzeń", "Sedlak & Sedlak", "sty 2025 – Obecnie", "Kraków (Hybrydowo)", 
                       "Wartościowanie stanowisk, analizy luki płacowej, audyty systemów wynagradzania."),
             exp_entry("Starszy specjalista ds. analiz wynagrodzeń", "Sedlak & Sedlak", "2022 – 2024", "Kraków"),
             exp_entry("Specjalista ds. analiz wynagrodzeń", "Sedlak & Sedlak", "2019 – 2022", "Kraków"),
             exp_entry("Nauczyciel Podstaw przedsiębiorczości", "ZSM 4", "2020 – 2021", "Kraków"),
-            exp_entry("Referent ds. księgowych", "MCOO", "2017 – 2018", "Kraków"),
 
             # WYKSZTAŁCENIE
-            ft.Text("EDUKACJA", size=20, weight=ft.FontWeight.BOLD, color=primary),
+            ft.Text("EDUKACJA", size=22, weight=ft.FontWeight.BOLD, color=primary),
             ft.ListTile(
                 leading=ft.Icon(ft.icons.SCHOOL, color=secondary),
                 title=ft.Text("Analityk Biznesowy (Studia Podyplomowe)"),
@@ -109,16 +130,16 @@ def main(page: ft.Page):
                 subtitle=ft.Text("Uniwersytet Ekonomiczny w Krakowie"),
             ),
 
-            # PRZYCISKI KONTAKTOWE
             ft.Container(height=30),
+            
+            # STOPKA / KONTAKT
             ft.Row([
                 ft.ElevatedButton(
-                    "Pobierz ofertę (Analiza luki)", 
-                    icon=ft.icons.INSERT_CHART,
+                    "Skontaktuj się w sprawie projektu", 
+                    icon=ft.icons.SEND,
                     on_click=lambda _: page.launch_url("mailto:klimczak@sedlak.pl"),
-                    style=ft.ButtonStyle(bgcolor=primary, color="white")
+                    style=ft.ButtonStyle(bgcolor=primary, color=ft.Colors.WHITE)
                 ),
-                ft.TextButton("Zadzwoń: 503 331 902", on_click=lambda _: page.launch_url("tel:503331902"))
             ], alignment=ft.MainAxisAlignment.CENTER)
         ], spacing=10)
     )
@@ -132,5 +153,6 @@ def main(page: ft.Page):
     )
 
 if __name__ == "__main__":
+    # Obsługa portu pod Render.com
     port = int(os.getenv("PORT", 8502))
     ft.app(target=main, view=ft.AppView.WEB_BROWSER, host="0.0.0.0", port=port)
