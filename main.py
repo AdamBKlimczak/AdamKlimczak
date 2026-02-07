@@ -8,7 +8,7 @@ def main(page: ft.Page):
     page.bgcolor = "#F8F9FA"
     page.padding = 0
 
-    # --- PALETA BARW (Wersja Colors) ---
+    # --- PALETA BARW ---
     primary = "#1A237E"  
     secondary = "#0D47A1"
     bg_white = ft.Colors.WHITE
@@ -41,7 +41,7 @@ def main(page: ft.Page):
         bgcolor=bg_white,
         padding=50,
         border_radius=15,
-        shadow=ft.BoxShadow(blur_radius=25, color=ft.Colors.with_opacity(0.05, "black")),
+        shadow=ft.BoxShadow(blur_radius=25, color=ft.Colors.with_opacity(0.05, ft.Colors.BLACK)),
         content=ft.Column([
             # NAGŁÓWEK
             ft.Row([
@@ -49,11 +49,10 @@ def main(page: ft.Page):
                     ft.Text("ADAM KLIMCZAK", size=40, weight=ft.FontWeight.BOLD, color=primary),
                     ft.Text("Ekspert ds. analiz wynagrodzeń | Analityk Biznesowy", size=20, color=secondary),
                     ft.Row([
-                        # POPRAWIONE NAZWY IKON (Małe litery)
                         ft.Icon(ft.Icons.EMAIL_OUTLINED, size=18, color=secondary),
                         ft.Text("klimczak@sedlak.pl", size=14),
                         ft.Container(width=15),
-                        ft.Icon(ft.Icons.PHONE_ANDROID, size=18, color=secondary),
+                        ft.Icon(ft.Icons.PHONE_ANDROID_OUTLINED, size=18, color=secondary),
                         ft.Text("503 331 902", size=14),
                     ]),
                 ], expand=True),
@@ -70,12 +69,12 @@ def main(page: ft.Page):
             ft.Text(
                 "Dogaduję się z danymi. Przy pomocy Excela, Pythona (Pandas) i Tableau potrafię wycisnąć z bazy danych wszystko. "
                 "Tworzę najlepsze raporty płacowe w Polsce, łącząc pasję do automatyzacji (VBA) z precyzyjną analizą rynku pracy.",
-                size=15, line_height=1.4
+                size=15
             ),
 
             ft.Container(height=15),
 
-            # SEKCJĄ: KOMPLEKSOWE PROJEKTY
+            # SEKCJA: KOMPLEKSOWE PROJEKTY
             ft.Container(
                 content=ft.Column([
                     ft.Text("KOMPLEKSOWE PROJEKTY WARTOŚCIOWANIA", size=18, weight=ft.FontWeight.BOLD, color=primary),
@@ -88,7 +87,7 @@ def main(page: ft.Page):
                         "• Przygotowanie dedykowanych narzędzi analitycznych.\n"
                         "• Wybór i szkolenie komisji wartościującej oraz moderowanie sesji.\n"
                         "• Opracowanie finalnej struktury i tabel płac zgodnych z rynkiem.",
-                        size=14, line_height=1.4
+                        size=14
                     ),
                 ], spacing=5),
                 bgcolor="#F1F3F9",
@@ -121,12 +120,12 @@ def main(page: ft.Page):
             # WYKSZTAŁCENIE
             ft.Text("EDUKACJA", size=22, weight=ft.FontWeight.BOLD, color=primary),
             ft.ListTile(
-                leading=ft.Icon(ft.Icons.SCHOOL, color=secondary),
+                leading=ft.Icon(ft.Icons.SCHOOL_OUTLINED, color=secondary),
                 title=ft.Text("Analityk Biznesowy (Studia Podyplomowe)"),
                 subtitle=ft.Text("Krakowska Szkoła Biznesu UEK"),
             ),
             ft.ListTile(
-                leading=ft.Icon(ft.Icons.SCHOOL, color=secondary),
+                leading=ft.Icon(ft.Icons.SCHOOL_OUTLINED, color=secondary),
                 title=ft.Text("Magister Ekonomii (Analityka Ekonomiczno-Finansowa)"),
                 subtitle=ft.Text("Uniwersytet Ekonomiczny w Krakowie"),
             ),
@@ -137,7 +136,7 @@ def main(page: ft.Page):
             ft.Row([
                 ft.ElevatedButton(
                     "Skontaktuj się w sprawie projektu", 
-                    icon=ft.Icons.SEND_ROUNDED, # Poprawiona nazwa ikony
+                    icon=ft.Icons.SEND_ROUNDED,
                     on_click=lambda _: page.launch_url("mailto:klimczak@sedlak.pl"),
                     style=ft.ButtonStyle(bgcolor=primary, color=ft.Colors.WHITE)
                 ),
