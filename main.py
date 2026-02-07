@@ -8,7 +8,7 @@ def main(page: ft.Page):
     page.bgcolor = "#F8F9FA"
     page.padding = 0
 
-    # --- PALETA BARW ---
+    # --- PALETA BARW (Wersja Colors) ---
     primary = "#1A237E"  
     secondary = "#0D47A1"
     bg_white = ft.Colors.WHITE
@@ -46,19 +46,19 @@ def main(page: ft.Page):
             # NAGŁÓWEK
             ft.Row([
                 ft.Column([
-                    # Usunięto letter_spacing, który powodował błąd
                     ft.Text("ADAM KLIMCZAK", size=40, weight=ft.FontWeight.BOLD, color=primary),
                     ft.Text("Ekspert ds. analiz wynagrodzeń | Analityk Biznesowy", size=20, color=secondary),
                     ft.Row([
-                        ft.Icon(ft.icons.EMAIL, size=18, color=secondary),
+                        # POPRAWIONE NAZWY IKON (Małe litery)
+                        ft.Icon(ft.Icons.EMAIL_OUTLINED, size=18, color=secondary),
                         ft.Text("klimczak@sedlak.pl", size=14),
                         ft.Container(width=15),
-                        ft.Icon(ft.icons.PHONE, size=18, color=secondary),
+                        ft.Icon(ft.Icons.PHONE_ANDROID, size=18, color=secondary),
                         ft.Text("503 331 902", size=14),
                     ]),
                 ], expand=True),
                 ft.Container(
-                    content=ft.Icon(ft.icons.ANALYTICS, size=80, color=primary),
+                    content=ft.Icon(ft.Icons.ANALYTICS_OUTLINED, size=80, color=primary),
                     padding=20
                 )
             ]),
@@ -121,12 +121,12 @@ def main(page: ft.Page):
             # WYKSZTAŁCENIE
             ft.Text("EDUKACJA", size=22, weight=ft.FontWeight.BOLD, color=primary),
             ft.ListTile(
-                leading=ft.Icon(ft.icons.SCHOOL, color=secondary),
+                leading=ft.Icon(ft.Icons.SCHOOL, color=secondary),
                 title=ft.Text("Analityk Biznesowy (Studia Podyplomowe)"),
                 subtitle=ft.Text("Krakowska Szkoła Biznesu UEK"),
             ),
             ft.ListTile(
-                leading=ft.Icon(ft.icons.SCHOOL, color=secondary),
+                leading=ft.Icon(ft.Icons.SCHOOL, color=secondary),
                 title=ft.Text("Magister Ekonomii (Analityka Ekonomiczno-Finansowa)"),
                 subtitle=ft.Text("Uniwersytet Ekonomiczny w Krakowie"),
             ),
@@ -137,7 +137,7 @@ def main(page: ft.Page):
             ft.Row([
                 ft.ElevatedButton(
                     "Skontaktuj się w sprawie projektu", 
-                    icon=ft.icons.SEND,
+                    icon=ft.Icons.SEND_ROUNDED, # Poprawiona nazwa ikony
                     on_click=lambda _: page.launch_url("mailto:klimczak@sedlak.pl"),
                     style=ft.ButtonStyle(bgcolor=primary, color=ft.Colors.WHITE)
                 ),
