@@ -8,8 +8,8 @@ def main(page: ft.Page):
     page.bgcolor = "#F8F9FA"
     page.padding = 0
 
-    # --- PALETA BARW (Zgodna z nowym standardem Colors) ---
-    primary = "#1A237E"  # Navy Blue
+    # --- PALETA BARW ---
+    primary = "#1A237E"  
     secondary = "#0D47A1"
     bg_white = ft.Colors.WHITE
     
@@ -46,7 +46,8 @@ def main(page: ft.Page):
             # NAGŁÓWEK
             ft.Row([
                 ft.Column([
-                    ft.Text("ADAM KLIMCZAK", size=40, weight=ft.FontWeight.BOLD, color=primary, letter_spacing=1),
+                    # Usunięto letter_spacing, który powodował błąd
+                    ft.Text("ADAM KLIMCZAK", size=40, weight=ft.FontWeight.BOLD, color=primary),
                     ft.Text("Ekspert ds. analiz wynagrodzeń | Analityk Biznesowy", size=20, color=secondary),
                     ft.Row([
                         ft.Icon(ft.icons.EMAIL, size=18, color=secondary),
@@ -74,7 +75,7 @@ def main(page: ft.Page):
 
             ft.Container(height=15),
 
-            # NOWA SEKCJA: KOMPLEKSOWE PROJEKTY
+            # SEKCJĄ: KOMPLEKSOWE PROJEKTY
             ft.Container(
                 content=ft.Column([
                     ft.Text("KOMPLEKSOWE PROJEKTY WARTOŚCIOWANIA", size=18, weight=ft.FontWeight.BOLD, color=primary),
@@ -132,7 +133,7 @@ def main(page: ft.Page):
 
             ft.Container(height=30),
             
-            # STOPKA / KONTAKT
+            # KONTAKT
             ft.Row([
                 ft.ElevatedButton(
                     "Skontaktuj się w sprawie projektu", 
@@ -153,6 +154,5 @@ def main(page: ft.Page):
     )
 
 if __name__ == "__main__":
-    # Obsługa portu pod Render.com
     port = int(os.getenv("PORT", 8502))
     ft.app(target=main, view=ft.AppView.WEB_BROWSER, host="0.0.0.0", port=port)
