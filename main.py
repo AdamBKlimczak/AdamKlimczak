@@ -4,18 +4,16 @@ import os
 def main(page: ft.Page):
     page.title = "Adam Klimczak - CV"
     page.theme_mode = ft.ThemeMode.LIGHT
-    # ScrollMode.AUTO został w niektórych wersjach zastąpiony prostym True/False lub "auto"
     page.scroll = "auto" 
     page.bgcolor = "#F8F9FA"
     page.padding = 0
 
-    # --- KOLORY (Wersja 0.27+) ---
+    # --- KOLORY ---
     primary_color = "#1A237E"
     secondary_color = "#0D47A1"
 
     # --- KOMPONENTY ---
     def skill_chip(label):
-        # Maksymalnie uproszczony Chip - bez border_radius, który sypał błędem
         return ft.Chip(
             label=ft.Text(label, size=12),
             bgcolor="#E8EAF6"
@@ -32,16 +30,18 @@ def main(page: ft.Page):
                 ft.Text(description, size=14, color="#455A64") if description else ft.Container(),
                 ft.Divider(height=20, thickness=0.5),
             ], spacing=5),
-            padding=ft.padding.only(bottom=10)
+            # POPRAWIONE: Nowy sposób zapisu paddingu (left, top, right, bottom)
+            padding=ft.Padding(0, 0, 0, 10) 
         )
 
-    # --- STRUKTURA CV ---
+    # --- UKŁAD STRONY ---
     content_area = ft.Container(
         width=900,
         bgcolor=ft.Colors.WHITE,
         padding=50,
         border_radius=15,
-        shadow=ft.BoxShadow(blur_radius=25, color=ft.Colors.with_opacity(0.1, ft.Colors.BLACK)),
+        # POPRAWIONE: with_alpha zastępuje with_opacity
+        shadow=ft.BoxShadow(blur_radius=25, color=ft.Colors.with_alpha(30, ft.Colors.BLACK)),
         content=ft.Column([
             # NAGŁÓWEK
             ft.Row([
@@ -109,14 +109,14 @@ def main(page: ft.Page):
 
             ft.Container(height=20),
 
-            # EXP
+            # DOŚWIADCZENIE
             ft.Text("DOŚWIADCZENIE ZAWODOWE", size=22, weight="bold", color=primary_color),
             exp_entry("Ekspert ds. analiz wynagrodzeń", "Sedlak & Sedlak", "sty 2025 – Obecnie", "Kraków"),
             exp_entry("Starszy specjalista ds. analiz wynagrodzeń", "Sedlak & Sedlak", "2022 – 2024", "Kraków"),
             exp_entry("Specjalista ds. analiz wynagrodzeń", "Sedlak & Sedlak", "2019 – 2022", "Kraków"),
             exp_entry("Nauczyciel Podstaw przedsiębiorczości", "ZSM 4", "2020 – 2021", "Kraków"),
 
-            # EDU
+            # WYKSZTAŁCENIE
             ft.Text("EDUKACJA", size=22, weight="bold", color=primary_color),
             ft.ListTile(
                 leading=ft.Icon(ft.Icons.SCHOOL, color=secondary_color),
@@ -131,10 +131,11 @@ def main(page: ft.Page):
 
             ft.Container(height=30),
             
-            # CTA
+            # KONTAKT
             ft.Row([
-                ft.ElevatedButton(
-                    "Skontaktuj się w sprawie projektu", 
+                # POPRAWIONE: ft.Button zamiast ElevatedButton
+                ft.Button(
+                    text="Skontaktuj się w sprawie projektu", 
                     icon=ft.Icons.SEND,
                     on_click=lambda _: page.launch_url("mailto:klimczak@sedlak.pl"),
                     style=ft.ButtonStyle(bgcolor=primary_color, color=ft.Colors.WHITE)
@@ -146,12 +147,13 @@ def main(page: ft.Page):
     page.add(
         ft.Container(
             content=content_area,
-            alignment=ft.alignment.center,
+            # POPRAWIONE: Nowy obiekt Alignment(x, y) zamiast ft.alignment.center
+            alignment=ft.Alignment(0, 0), 
             padding=40
         )
     )
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8502))
-    # Host 0.0.0.0 jest kluczowy dla Rendera
-    ft.app(target=main, view=ft.AppView.WEB_BROWSER, host="0.0.0.0", port=port)
+    # POPRAWIONE: ft.run() zastępuje ft.app()
+    ft.run(main, host="0.0.0.0", port=port)
